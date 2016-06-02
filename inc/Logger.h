@@ -20,7 +20,7 @@ namespace Common
   {
   private:
     static bool instanceFlag;
-    static Logger* instance;
+    static Logger instance;
     Logger();
     ~Logger();
     void log(string s, LogLevel level);
