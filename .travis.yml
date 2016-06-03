@@ -13,6 +13,11 @@ addons:
       - gcc-4.8
       - g++-4.8
 
+before_script:
+    - uname -a
+    - printenv
+    - g++ --version 2>&1 | grep g++
+
 script:
   - cmake .
   - make
