@@ -3,9 +3,12 @@ language: cpp
 compiler:
   - gcc
 
-before_install:
-  - apt-get update
-  - apt-get install libboost-all-dev
+addons:
+  apt:
+    sources:
+      - boost-latest
+    packages:
+      - libboost-all-dev
 
 script:
   - cmake .
