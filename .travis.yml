@@ -1,15 +1,11 @@
 language: cpp
 
 compiler:
-  - clang
   - gcc
 
 before_install:
-  - sudo add-apt-repository -y ppa:purplekarrot/cmake
-  - sudo apt-get update
-  - sudo apt-get install cmake cmake-data libopenmpi-dev
-  - mkdir build
-  - ./shallow-clone develop https://github.com/boostorg/boost.git build/boost
+  - apt-get update
+  - apt-get install libboost-all-dev
 
 script:
   - cmake .
