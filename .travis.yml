@@ -7,17 +7,12 @@ addons:
   apt:
     sources:
       - boost-latest
-      - ubuntu-toolchain-r-test
     packages:
       - libboost-regex-dev
-      - gcc-4.8
-      - g++-4.8
 
 before_script:
     - uname -a
     - printenv
-    - g++ --version 2>&1 | grep g++
-    - export CXX=g++-4.8
 
 script:
   - cmake .
