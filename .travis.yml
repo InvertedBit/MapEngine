@@ -9,7 +9,7 @@ addons:
       - boost-latest
     packages:
       - libboost-regex-dev
-      - g++-4.8
+      - gcc-4.8
 
 script:
   - cmake .
