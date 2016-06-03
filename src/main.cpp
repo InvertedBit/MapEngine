@@ -3,6 +3,7 @@
 #include "../inc/TileMap.h"
 #include "../inc/Tile.h"
 #include "../inc/Logger.h"
+#include "../inc/Config.h"
 
 using namespace std;
 using namespace Common;
@@ -12,6 +13,9 @@ int main()
   int in,out,height,width;
   Logger::Log("Starting MapEditor...",LogLevel::INFO);
 	//cout << new LogStatement("MapEditor") << endl;
+
+  Config* config = new Config();
+  config->LoadFile("config.txt");
 
 	cout << "Height?" << endl;
 
