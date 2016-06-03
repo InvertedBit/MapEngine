@@ -8,7 +8,7 @@ addons:
     sources:
       - boost-latest
     packages:
-      - libboost-all-dev
+      - libboost-regex-dev
 
 script:
   - cmake .
