@@ -1,0 +1,15 @@
+language: cpp
+
+compiler:
+  - gcc
+
+addons:
+  apt:
+    sources:
+      - boost-latest
+    packages:
+      - libboost-regex-dev
+
+script:
+  - cmake .
+  - make
