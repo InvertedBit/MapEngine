@@ -10,6 +10,10 @@ addons:
     packages:
       - libboost-regex-dev
 
+before_script:
+    - uname -a
+    - printenv
+
 script:
   - cmake .
   - make
