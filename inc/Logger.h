@@ -2,6 +2,7 @@
 #define LOGGER_H
 
 #include <string>
+#include <map>
 
 using namespace std;
 
@@ -13,17 +14,17 @@ namespace Common
     INFO,
     WARNING,
     ERROR,
-    FATAL,
+    FATAL
   };
 
   class Logger
   {
   private:
-    static bool instanceFlag;
     static Logger instance;
     Logger();
     ~Logger();
     void log(string s, LogLevel level);
+    map<LogLevel,string> loglevels;
   public:
     static void Log(string s, LogLevel level);
   };
