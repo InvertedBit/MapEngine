@@ -90,7 +90,8 @@ source_group("inc" FILES ${HDRS})
 
 
 # find packages and libs
-
+find_package( Boost REQUIRED COMPONENTS regex )
+include_directories( ${Boost_INCLUDE_DIRS} )
 
 # setup package headers
 
@@ -100,6 +101,7 @@ set(LIBS_DEBUG
 )
 
 set(LIBS_RELEASE
+${Boost_REGEX_LIBRARY}
 )
 
 
