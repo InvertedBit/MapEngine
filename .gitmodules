@@ -1,0 +1,3 @@
+[submodule "submodules/linenoise-ng"]
+	path = submodules/linenoise-ng
+	url = git@github.com:InvertedBit/linenoise-ng.git
