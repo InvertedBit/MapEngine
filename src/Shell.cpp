@@ -11,8 +11,7 @@ using namespace std;
 using namespace Common;
 
 
-//TODO: integrate in Shell class
-void completionCallback(char const* prefix, linenoiseCompletions* lc)
+void Shell::completionCallback(char const* prefix, linenoiseCompletions* lc)
 {
     map<string,function<string(vector<string>)>> commands = Shell::GetCommands();
     
@@ -105,7 +104,7 @@ void Shell::Start()
     const char* file = "./history.txt";
     
     linenoiseHistoryLoad(file);
-    linenoiseSetCompletionCallback(completionCallback);
+    linenoiseSetCompletionCallback(Shell::completionCallback);
 //    linenoiseSetHintsCallback(hints);
     
     char const* prompt = "\x1b[1;32mMapEngine\x1b[0m> ";
