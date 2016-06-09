@@ -77,6 +77,9 @@ endif()
 file(GLOB SRCS
     ./src/*.c
     ./src/*.cpp
+    ./submodules/linenoise-ng/ConvertUTF.cpp
+    ./submodules/linenoise-ng/wcwidth.cpp
+    ./submodules/linenoise-ng/linenoise.cpp
 )
 source_group("src" FILES ${SRCS})
 
@@ -85,6 +88,8 @@ source_group("src" FILES ${SRCS})
 file(GLOB HDRS
     ./inc/*.h
     ./inc/*.hpp
+    ./submodules/linenoise-ng/ConvertUTF.h
+    ./submodules/linenoise-ng/linenoise.h
 )
 source_group("inc" FILES ${HDRS})
 
