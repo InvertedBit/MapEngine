@@ -19,7 +19,7 @@ namespace Common
         Shell();
         ~Shell();
 //        string getCommandName(function<string> commandCallback);
-        //void completionCallback(char const* prefix, linenoiseCompletions* lc);
+        static void completionCallback(char const* prefix, linenoiseCompletions* lc);
         //const char* hintCallback(const char *buf, int *color, int *bold); //TODO: implement hints
         void loop(char const* prompt);
     public:
