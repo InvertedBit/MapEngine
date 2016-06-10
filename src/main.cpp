@@ -13,12 +13,12 @@ using namespace Common;
 
 int main()
 {
-    future<void> promise( Shell::Start());
+    future<void> promise( async(Shell::Start));
     
     Logger::Log("Async test after Shell start", LogLevel::DEBUG);
 
 
-    promise.get();
+    promise.get(); // This results in a SIGSEGV
 
     //TODO: Integrate map setup in Map class using Shell commands
 /*  int in,out,height,width;

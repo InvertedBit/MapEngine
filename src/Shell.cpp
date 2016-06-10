@@ -41,8 +41,6 @@ Shell::Shell()
 
 Shell::~Shell()
 {
-    linenoiseHistorySave(historyFile);
-    linenoiseHistoryFree();
 }
 
 
@@ -87,6 +85,9 @@ void Shell::loop(char const* prompt)
         linenoiseHistoryAdd(commandOrig);
         free(commandOrig);
     }
+    
+    linenoiseHistorySave(historyFile);
+    linenoiseHistoryFree();
 }
 /*
 string Shell::getCommandName(ShellCommand commandCallback)
@@ -103,7 +104,7 @@ string Shell::getCommandName(ShellCommand commandCallback)
     return "";
 }
 */
-future<void> Shell::Start()
+void Shell::Start()
 {
     linenoiseInstallWindowChangeHandler();
     
@@ -115,8 +116,7 @@ future<void> Shell::Start()
     
     char const* prompt = "\x1b[1;32mMapEngine\x1b[0m> ";
     
-    future<void> promise( async(&Shell::loop,instance,prompt));
-
+    instance.loop(prompt);
 }
 
 void Shell::RegisterCommand(string name, function<string(vector<string>)> commandCallback)

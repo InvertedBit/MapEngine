@@ -24,7 +24,7 @@ namespace Common
         //const char* hintCallback(const char *buf, int *color, int *bold); //TODO: implement hints
 
     public:
-        static future<void> Start();
+        static void Start();
         static void RegisterCommand(string name, function<string(vector<string>)> commandCallback);
         static map<string,function<string(vector<string>)>> GetCommands();
         static void RunCommand(string command, vector<string> params);
