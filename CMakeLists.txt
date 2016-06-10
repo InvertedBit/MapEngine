@@ -20,6 +20,7 @@ else()
         message(STATUS "The compiler ${CMAKE_CXX_COMPILER} has no C++11 support. Please use a different C++ compiler.")
 endif()
 
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread -lpthread")
 
 
 # adjust some global CMake configuration settings
@@ -97,21 +98,31 @@ source_group("inc" FILES ${HDRS})
 # find packages and libs
 find_package( Boost REQUIRED COMPONENTS regex )
 include_directories( ${Boost_INCLUDE_DIRS} )
+find_package (Threads REQUIRED)
+
+
+add_library(LinenoiseNg ./submodules/linenoise-ng/ConvertUTF.h ./submodules/linenoise-ng/linenoise.h ./submodules/linenoise-ng/ConvertUTF.cpp ./submodules/linenoise-ng/wcwidth.cpp ./submodules/linenoise-ng/linenoise.cpp)
 
 # setup package headers
 
 
 # setup debug/release libraries
-set(LIBS_DEBUG
-)
 
 set(LIBS_RELEASE
 ${Boost_REGEX_LIBRARY}
+${CMAKE_THREAD_LIBS_INIT}
+LinenoiseNg
 )
 
+set(LIBS_DEBUG
+${LIBS_DEBUG}
+${Boost_REGEX_LIBRARY}
+${CMAKE_THREAD_LIBS_INIT}
+LinenoiseNg
+)
 
 
 # define target dependencies and build instructions
 set(EXECUTABLE_NAME ${PROJECT_NAME})
 add_executable(${EXECUTABLE_NAME} ${SRCS} ${HDRS})
-target_link_libraries(${EXECUTABLE_NAME} ${LIBS_RELEASE} ${LIBS_DEBUG})
+target_link_libraries(${EXECUTABLE_NAME} optimized ${LIBS_RELEASE} debug ${LIBS_DEBUG})

@@ -2,9 +2,12 @@
 #include <iterator>
 #include <iostream>
 #include <string>
+#include <future>
+#include <numeric>
 #include <cstring>
 #include "../inc/Shell.h"
 #include "../inc/Logger.h"
+#include "../inc/Config.h"
 #include "../submodules/linenoise-ng/linenoise.h"
 
 using namespace std;
@@ -47,6 +50,7 @@ Shell::~Shell()
 
 void Shell::loop(char const* prompt)
 {
+    Logger::Log("Starting shell loop...", LogLevel::DEBUG);
     running = true;
     while (running)
     {
@@ -81,6 +85,9 @@ void Shell::loop(char const* prompt)
         linenoiseHistoryAdd(commandOrig);
         free(commandOrig);
     }
+    
+    linenoiseHistorySave(historyFile);
+    linenoiseHistoryFree();
 }
 /*
 string Shell::getCommandName(ShellCommand commandCallback)
@@ -101,18 +108,15 @@ void Shell::Start()
 {
     linenoiseInstallWindowChangeHandler();
     
-    const char* file = "./history.txt";
+    instance.historyFile = Config::Get("shell.history").c_str();
     
-    linenoiseHistoryLoad(file);
+    linenoiseHistoryLoad(instance.historyFile);
     linenoiseSetCompletionCallback(Shell::completionCallback);
 //    linenoiseSetHintsCallback(hints);
     
     char const* prompt = "\x1b[1;32mMapEngine\x1b[0m> ";
     
     instance.loop(prompt);
-    
-    linenoiseHistorySave(file);
-    linenoiseHistoryFree();
 }
 
 void Shell::RegisterCommand(string name, function<string(vector<string>)> commandCallback)
@@ -127,11 +131,13 @@ map<string,function<string(vector<string>)>> Shell::GetCommands()
 
 void Shell::RunCommand(string command, vector<string> params)
 {
-    Logger::Log("Running Command: " + command, LogLevel::DEBUG);
+    string s;
+    s = accumulate(begin(params), end(params), s);
+    Logger::Log("Running Command: " + command + " with params: " + s, LogLevel::DEBUG);
     cout << instance.commands[command](params) << endl;
 }
 
-string Shell::Shutdown(vector<string>)
+string Shell::Shutdown(vector<string> params)
 {
     string ret("Shutting down...");
     instance.running = false;

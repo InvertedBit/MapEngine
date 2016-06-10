@@ -1,2 +1,3 @@
 logger.file=log.txt;
 logger.loglevel=ALL;
+shell.history=./history.txt;

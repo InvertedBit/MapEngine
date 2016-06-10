@@ -1,5 +1,6 @@
 #include <iostream>
-#include <string.h>
+#include <string>
+#include <future>
 #include "../inc/Map.h"
 #include "../inc/TileMap.h"
 #include "../inc/Tile.h"
@@ -10,14 +11,15 @@
 using namespace std;
 using namespace Common;
 
-static const char* commands[] = {
-  "engine.shutdown", "engine.reload", "engine.paus", "config.load", "config.get", "config.set", "config.save", "config.clear", "map.load", "map.new", "map.save", "map.delete", NULL
-};
-
 int main()
 {
-    Shell::Start();
+    future<void> promise( async(Shell::Start));
     
+    Logger::Log("Async test after Shell start", LogLevel::DEBUG);
+
+
+    promise.get(); // This results in a SIGSEGV
+
     //TODO: Integrate map setup in Map class using Shell commands
 /*  int in,out,height,width;
   Logger::Log("Starting MapEditor...",LogLevel::INFO);
