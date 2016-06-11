@@ -29,7 +29,7 @@ void Config::Set(string name, string value)
 void Config::Load(string content)
 {
   instance.configs.clear();
-  Logger::Log("Loading config from string",LogLevel::DEBUG);
+  Logger::Log("Loading config from string",LogLevel::Get("DEBUG"));
   regex exp("([a-z\\.]+)(?:=)([a-zA-z0-9\\/\\\\]+)(?:;)");
   string::const_iterator start, end;
   match_results<string::const_iterator> match;
@@ -44,7 +44,7 @@ void Config::Load(string content)
   while(regex_search(start, end, match, exp, flags))
   {
     instance.configs[match[1]] = match[2];
-    Logger::Log("Loading Setting: " + match[1] + "=" + match[2], LogLevel::DEBUG);
+    Logger::Log("Loading Setting: " + match[1] + "=" + match[2], LogLevel::Get("DEBUG"));
 
     start = match[0].second;
 

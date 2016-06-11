@@ -3,30 +3,27 @@
 
 #include <string>
 #include <map>
+#include <queue>
+#include <mutex>
+#include "LogEntry.h"
 
 using namespace std;
 
 namespace Common
 {
 
-  enum LogLevel {
-    DEBUG,
-    INFO,
-    WARNING,
-    ERROR,
-    FATAL
-  };
-
   class Logger
   {
   private:
     static Logger instance;
+    bool writingLog;
     Logger();
     ~Logger();
-    void log(string s, LogLevel level);
-    map<LogLevel,string> loglevels;
+    void writeLog();
+    queue<LogEntry> entries;
+    mutex writeLogLock;
   public:
-    static void Log(string s, LogLevel level);
+    static void Log(string s, LogLevel* level);
   };
 }
 

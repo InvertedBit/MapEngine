@@ -15,7 +15,7 @@ int main()
 {
     future<void> promise( async(Shell::Start));
     
-    Logger::Log("Async test after Shell start", LogLevel::DEBUG);
+    Logger::Log("Async test after Shell start", LogLevel::Get("DEBUG"));
 
 
     promise.get(); // This results in a SIGSEGV
