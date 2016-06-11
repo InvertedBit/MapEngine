@@ -10,27 +10,32 @@ Logger Logger::instance;
 
 
 
-void Logger::Log(string s, LogLevel level)
+void Logger::Log(string s, LogLevel* level)
 {
-  instance.log(s, level);
+    instance.entries.push(LogEntry(s, level));
+    instance.writeLog();
 }
 
 Logger::Logger()
 {
-  loglevels[LogLevel::DEBUG] = "DEBUG";
-  loglevels[LogLevel::INFO] = "INFO";
-  loglevels[LogLevel::WARNING] = "WARNING";
-  loglevels[LogLevel::ERROR] = "ERROR";
-  loglevels[LogLevel::FATAL] = "FATAL";
 }
 
 Logger::~Logger()
 {
-
+    writeLog();
 }
 
-void Logger::log(string s, LogLevel level)
+void Logger::writeLog()
 {
-  //TODO: Filter by loglevel
-  cout << Logger::loglevels[level] << ": " << s << endl;
+    if(writingLog)
+        return;
+        
+    writingLog = true;
+    //TODO: Filter by loglevel
+    while(!entries.empty())
+    {
+        cout << entries.front().ToString() << endl;
+        entries.pop();
+    }
+    writingLog = false;
 }

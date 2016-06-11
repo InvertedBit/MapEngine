@@ -50,7 +50,7 @@ Shell::~Shell()
 
 void Shell::loop(char const* prompt)
 {
-    Logger::Log("Starting shell loop...", LogLevel::DEBUG);
+    Logger::Log("Starting shell loop...", LogLevel::Get("DEBUG"));
     running = true;
     while (running)
     {
@@ -133,7 +133,7 @@ void Shell::RunCommand(string command, vector<string> params)
 {
     string s;
     s = accumulate(begin(params), end(params), s);
-    Logger::Log("Running Command: " + command + " with params: " + s, LogLevel::DEBUG);
+    Logger::Log("Running Command: " + command + " with params: " + s, LogLevel::Get("DEBUG"));
     cout << instance.commands[command](params) << endl;
 }
 
