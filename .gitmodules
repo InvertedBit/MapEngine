@@ -1,3 +1,6 @@
 [submodule "submodules/linenoise-ng"]
 	path = submodules/linenoise-ng
 	url = git@github.com:InvertedBit/linenoise-ng.git
+[submodule "submodules/Selene"]
+	path = submodules/Selene
+	url = https://github.com/jeremyong/Selene.git
