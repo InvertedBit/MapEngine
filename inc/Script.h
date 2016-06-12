@@ -5,17 +5,21 @@
 #include "../submodules/Selene/include/selene.h"
 
 using namespace std;
-using namespace Sel;
+using namespace sel;
 
 namespace Common
 {
     class Script
     {
     private:
-        bool signed;
+        bool isSigned;
+        bool signatureRequired;
         State state;
+        string path;
+        void initialize();
     public:
         Script(string path,bool signatureRequired);
+        void Reload();
     };
 }
 

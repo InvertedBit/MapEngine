@@ -4,7 +4,8 @@ cmake_minimum_required(VERSION 2.8.0 FATAL_ERROR)
 
 # the 'project' macro is used to name a project
 project(MapEngine)
-
+set(CMAKE_C_COMPILER g++-5)
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules/")
 
 include(CheckCXXCompilerFlag)
 CHECK_CXX_COMPILER_FLAG("-std=c++14" COMPILER_SUPPORTS_CXX14)
@@ -91,6 +92,8 @@ file(GLOB HDRS
     ./inc/*.hpp
     ./submodules/linenoise-ng/ConvertUTF.h
     ./submodules/linenoise-ng/linenoise.h
+    ./submodules/Selene/include/selene.h
+    ./submodules/Selene/include/selene/*.h
 )
 source_group("inc" FILES ${HDRS})
 
@@ -99,9 +102,21 @@ source_group("inc" FILES ${HDRS})
 find_package( Boost REQUIRED COMPONENTS regex )
 include_directories( ${Boost_INCLUDE_DIRS} )
 find_package (Threads REQUIRED)
+find_package( Lua REQUIRED )
+include_directories( ${LUA_INCLUDE_DIR} )
 
 
 add_library(LinenoiseNg ./submodules/linenoise-ng/ConvertUTF.h ./submodules/linenoise-ng/linenoise.h ./submodules/linenoise-ng/ConvertUTF.cpp ./submodules/linenoise-ng/wcwidth.cpp ./submodules/linenoise-ng/linenoise.cpp)
+
+file(GLOB Selene_HDRS
+    ./submodules/Selene/include/selene.h
+    ./submodules/Selene/include/selene/*.h
+)
+
+#source_group(Selene_HDRS_grp FILES )
+
+include_directories( submodules/Selene/include )
+
 
 # setup package headers
 
@@ -112,6 +127,7 @@ set(LIBS_RELEASE
 ${Boost_REGEX_LIBRARY}
 ${CMAKE_THREAD_LIBS_INIT}
 LinenoiseNg
+${LUA_LIBRARIES}
 )
 
 set(LIBS_DEBUG
@@ -119,6 +135,7 @@ ${LIBS_DEBUG}
 ${Boost_REGEX_LIBRARY}
 ${CMAKE_THREAD_LIBS_INIT}
 LinenoiseNg
+${LUA_LIBRARIES}
 )
 
 

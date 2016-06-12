@@ -2,13 +2,26 @@
 
 using namespace std;
 using namespace Common;
-using namespace Sel;
+using namespace sel;
 
-Script::Script(string path, bool signatureRequired)
+void Script::initialize()
 {
     if(signatureRequired) {
         //TODO: Implement signature checks
     }else {
-        
+        state.Load(path);
     }
+}
+
+Script::Script(string scriptPath, bool sigRequired)
+{
+    path = scriptPath;
+    signatureRequired = sigRequired;
+    initialize();
+}
+
+void Script::Reload()
+{
+    state = State();
+    initialize();
 }
